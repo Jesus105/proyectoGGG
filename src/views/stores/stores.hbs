@@ -1,0 +1,112 @@
+<div class="col md-6 offset-md-3">
+    <div class="card">
+        <div class="card-header">
+            <h1>Registrar cliente</h1>
+        </div>
+        <div class="card-body">
+          {{#if cars}}
+            <ul class="list-group">
+            {{#each cars}}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{brand}}
+                {{model}}
+                {{year}}
+                {{color}}
+                {{quantity}}
+                {{type}}
+                <a href="/delete-car/{{@key}}" class="btn btn-danger">
+                  Eliminar
+                </a>
+              </li>
+            {{/each}}
+            </ul>
+          {{else}}
+          <p>Aún no se registran contactos</p>
+          {{/if}}
+        </div>
+    <div class="card-footer">
+      <form action="/new-car" method="POST">
+        <div class="row">
+          <div class="col">
+            <label for="brand">Marca:</label>
+            <input
+              type="text"
+              name="brand"
+              placeholder="Marca"
+              class="form-control mb-3"
+              value="{{car.brand}}"
+              autofocus
+            />
+          </div>
+          <div class="col">
+            <label for="model">Modelo:</label>
+            <input
+              type="text"
+              name="model"
+              placeholder="Modelo"
+              class="form-control mb-3"
+              value="{{car.model}}"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="year">Año:</label>
+            <input
+              type="text"
+              name="year"
+              placeholder="Año"
+              class="form-control mb-3"
+              value="{{car.year}}"
+            />
+          </div>
+          <div class="col">
+            <label for="color">Color:</label>
+            <input
+              type="tel"
+              name="color"
+              placeholder="Color"
+              class="form-control mb-3"
+              value="{{car.color}}"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="quantity">Cantidad:</label>
+            <input
+              type="text"
+              name="quantity"
+              placeholder="Cantidad"
+              class="form-control mb-3"
+              value="{{car.quantity}}"
+            />
+          </div>
+          <div class="col">
+            <label for="type">Tipo:</label>
+            <input
+              type="tel"
+              name="type"
+              placeholder="Tipo"
+              class="form-control mb-3"
+              value="{{car.type}}"
+            />
+          </div>
+        </div>
+        {{#if car.id}}
+          <button class="btn btn-primary btn-block">
+            Update
+          </button>
+          <a href="/" class="btn btn-secondary">
+            Cancel
+          </a>
+        {{else}}
+          <button class="btn btn-primary btn-block">
+            Add
+          </button>
+        {{/if}}
+      </form>
+    </div>
+        
+    </div>
+</div>

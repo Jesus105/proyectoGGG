@@ -2,6 +2,7 @@ const { Router } = require('express');
 const router = Router();
 
 const admin = require("firebase-admin");
+const { route } = require('../app');
 
 const serviceAccount = require("../key.json");
 
@@ -12,10 +13,29 @@ admin.initializeApp({
 
 const db = admin.database();
 
+
 router.get('/', (req, res) =>{
     db.ref('cars').once('value', (snapshot)=>{
         const data = snapshot.val();
         res.render('index', {cars: data})
+    });
+    
+})
+
+/*Administra ventas*/
+
+
+router.get('/sells', (req, res) =>{
+        res.render('sells/sells')
+    
+})
+
+/*    Administrar automoviles      */
+
+router.get('/cars', (req, res) =>{
+    db.ref('cars').once('value', (snapshot)=>{
+        const data = snapshot.val();
+        res.render('cars/cars', {cars: data})
     });
     
 })
@@ -31,12 +51,58 @@ router.post('/new-car', (req,res)=>{
         type: req.body.type
     }
     db.ref('cars').push(newCar);
-    res.redirect("/");
+    res.redirect("/cars");
 })
 
 router.get('/delete-car/:id',(req, res)=>{
     db.ref('cars/'+req.params.id).remove();
-    res.redirect("/");
+    res.redirect("/cars");
+})
+
+router.get('/get-car/:id',(req,res)=>{
+
+        db.ref('cars/'+req.params.id).on('value', (snapshot)=>{
+            const data = snapshot.val();
+            data.id = req.params.id;
+            res.render('cars/update-cars', {data})
+        })
+        
+})
+
+router.post('/update-car/:id', (req,res)=>{
+
+    db.ref('cars/'+req.params.id).on('value', (snapshot)=>{
+        const data = snapshot.val();
+        console.log(data);
+        console.log(req.body);
+        const updateCar = {
+            brand: (req.body.brand!=''? req.body.brand : data.brand),
+            model: (req.body.model!=''? req.body.model : data.model),
+            year: (req.body.year!=''? req.body.year : data.year),
+            color: (req.body.color!=''? req.body.color : data.color),
+            quantity: (req.body.quantity!=''? req.body.quantity : data.quantity),
+            type: (req.body.type!=''? req.body.type : data.type)
+        }
+        db.ref('cars/'+req.params.id).set(updateCar);
+    })
+
+    res.redirect('/cars');
+
+})
+
+/*Administra clientes*/
+router.get('/users', (req, res) =>{
+    res.render('users/users')
+})
+
+/*Administra ventas*/
+
+
+router.get('/stores', (req, res) =>{
+        res.render('stores/stores')
+
+    
 })
 
 module.exports = router;
+

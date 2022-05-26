@@ -1,0 +1,104 @@
+<div class="col md-6 offset-md-3">
+    <div class="card">
+        <div class="card-header">
+            <h1>Registrar venta</h1>
+        </div>
+        <div class="card-body">
+          {{#if cars}}
+            <ul class="list-group">
+            {{#each cars}}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{brand}}
+                {{model}}
+                {{year}}
+                {{color}}
+                {{quantity}}
+                {{type}}
+                <a href="/delete-car/{{@key}}" class="btn btn-danger">
+                  Eliminar
+                </a>
+              </li>
+            {{/each}}
+            </ul>
+          {{else}}
+          <p>Aún no se registran contactos</p>
+          {{/if}}
+        </div>
+    <div class="card-footer">
+      <form action="/new-car" method="POST">
+        <div class="row">
+          <div class="col">
+            <label for="store">Tienda:</label>
+              {{#if stores}}
+                  <select class="form-select" aria-label="Default select example"></select>
+                    <option selected>Open this select menu</option>
+                    {{#each stores}}
+                      <option value="{{@key}}">{{stores.name}}</option>
+
+                    {{/each}}
+                  </select>
+                {{else}}
+                <select class="form-select" aria-label="Disabled select example" disabled>
+                  <option selected>Aún no hay tiendas registradas</option>
+                </select>
+                {{/if}}
+              
+          </div>
+          <div class="col">
+            <label for="cars">Automoviles:</label>
+              {{#if cars}}
+                  <select class="form-select" aria-label="Default select example"></select>
+                    <option selected>Seleccione un auto</option>
+                    {{#each cars}}
+                      <option value="{{@key}}">{{cars.name}}</option>
+
+                    {{/each}}
+                  </select>
+                {{else}}
+                <select class="form-select" aria-label="Disabled select example" disabled>
+                  <option selected>Aún no hay autos registrados</option>
+                </select>
+                {{/if}}
+              
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="year">Año:</label>
+            <input
+              type="text"
+              name="year"
+              placeholder="Año"
+              class="form-control mb-3"
+              value="{{car.year}}"
+            />
+          </div>
+          <div class="col">
+            <label for="color">Color:</label>
+            <input
+              type="tel"
+              name="color"
+              placeholder="Color"
+              class="form-control mb-3"
+              value="{{car.color}}"
+            />
+          </div>
+        </div>
+       
+        {{#if car.id}}
+          <button class="btn btn-primary btn-block">
+            Update
+          </button>
+          <a href="/" class="btn btn-secondary">
+            Cancel
+          </a>
+        {{else}}
+          <button class="btn btn-primary btn-block">
+            Add
+          </button>
+        {{/if}}
+      </form>
+    </div>
+        
+    </div>
+</div>
