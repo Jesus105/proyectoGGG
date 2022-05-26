@@ -1,42 +1,18 @@
-<div class="col md-6 offset-md-3">
+<div class="col md-6 ">
     <div class="card">
         <div class="card-header">
-            <h1>Información sucursal</h1>
+            <h1>Actualizar datos del cliente</h1>
         </div>
-        <div class="card-body">
-          {{#if users}}
-            <ul class="list-group">
-            {{#each users}}
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{name}}
-                {{age}}
-                {{email}}
-                {{phone}}
-                {{state}}
-                {{street}}
-                {{s_number}}
-                <a href="/get-user/{{@key}}" class="btn btn-primary">
-                  Actualizar
-                </a>
-                <a href="/delete-user/{{@key}}" class="btn btn-danger">
-                  Eliminar
-                </a>
-              </li>
-            {{/each}}
-            </ul>
-          {{else}}
-          <p>Aún no se registran clientes</p>
-          {{/if}}
-        </div>
-    <div class="card-footer">
-      <form action="/new-user" method="POST">
+        
+    <div class="card-body">
+      <form action="/update-user/{{data.id}}" method="POST">
         <div class="row">
           <div class="col">
             <label for="name">Nombre:</label>
             <input
               type="text"
               name="name"
-              placeholder="Nombre"
+              placeholder="{{data.name}}"
               class="form-control mb-3"
               value="{{user.name}}"
               autofocus
@@ -47,7 +23,7 @@
             <input
               type="text"
               name="age"
-              placeholder="Edad"
+              placeholder="{{data.age}}"
               class="form-control mb-3"
               value="{{user.age}}"
             />
@@ -59,7 +35,7 @@
             <input
               type="text"
               name="email"
-              placeholder="Correo"
+              placeholder="{{data.email}}"
               class="form-control mb-3"
               value="{{user.email}}"
             />
@@ -69,7 +45,7 @@
             <input
               type="text"
               name="phone"
-              placeholder="Telefono"
+              placeholder="{{data.phone}}"
               class="form-control mb-3"
               value="{{user.phone}}"
             />
@@ -81,7 +57,7 @@
             <input
               type="text"
               name="state"
-              placeholder="Estado"
+              placeholder="{{data.state}}"
               class="form-control mb-3"
               value="{{user.state}}"
             />
@@ -91,7 +67,7 @@
             <input
               type="text"
               name="street"
-              placeholder="Tipo"
+              placeholder="{{data.street}}"
               class="form-control mb-3"
               value="{{user.street}}"
             />
@@ -101,13 +77,13 @@
             <input
               type="text"
               name="s_number"
-              placeholder="Numero Calle"
+              placeholder="{{data.s_number}}"
               class="form-control mb-3"
               value="{{user.s_number}}"
             />
           </div>
         </div>
-        {{#if user.id}}
+        {{#if car.id}}
           <button class="btn btn-primary btn-block">
             Update
           </button>

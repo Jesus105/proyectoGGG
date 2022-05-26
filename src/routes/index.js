@@ -71,7 +71,7 @@ router.get('/get-car/:id',(req,res)=>{
 
 router.post('/update-car/:id', (req,res)=>{
 
-    db.ref('cars/'+req.params.id).on('value', (snapshot)=>{
+    db.ref('cars/'+req.params.id).once('value', (snapshot)=>{
         const data = snapshot.val();
         console.log(data);
         console.log(req.body);
@@ -91,9 +91,68 @@ router.post('/update-car/:id', (req,res)=>{
 })
 
 /*Administra clientes*/
+
 router.get('/users', (req, res) =>{
-    res.render('users/users')
+    db.ref('users').once('value', (snapshot)=>{
+        const data = snapshot.val();
+        res.render('users/users', {users: data})
+    });
+    
 })
+
+router.post('/new-user', (req,res)=>{
+    console.log(req.body);
+    const newUser = {
+        name: req.body.name,
+        age: req.body.age,
+        email: req.body.email,
+        phone: req.body.phone,
+        state: req.body.state,
+        street: req.body.street,
+        s_number: req.body.s_number
+    }
+    db.ref('users').push(newUser);
+    res.redirect("/users");
+})
+
+router.get('/get-user/:id',(req,res)=>{
+
+        db.ref('users/'+req.params.id).on('value', (snapshot)=>{
+            const data = snapshot.val();
+            data.id = req.params.id;
+            res.render('users/update-users', {data})
+        })
+        
+})
+
+
+router.post('/update-user/:id', (req,res)=>{
+
+    db.ref('users/'+req.params.id).once('value', async (snapshot)=>{
+        const data = snapshot.val();
+        console.log(data);
+        console.log(req.body);
+        const updateUser = {
+            name: (req.body.name!=''? req.body.name : data.name),
+            age: (req.body.age!=''? req.body.age : data.age),
+            email: (req.body.email!=''? req.body.email : data.email),
+            phone: (req.body.phone!=''? req.body.phone : data.phone),
+            state: (req.body.state!=''? req.body.state : data.state),
+            street: (req.body.street!=''? req.body.street : data.street),
+            s_number: (req.body.s_number!=''? req.body.s_number : data.s_number)
+        }
+        await db.ref('users/'+req.params.id).set(updateUser);
+    })
+
+    res.redirect('/users');
+
+})
+
+router.get('/delete-user/:id',(req, res)=>{
+    db.ref('users/'+req.params.id).remove();
+    res.redirect("/users");
+})
+
 
 /*Administra ventas*/
 
