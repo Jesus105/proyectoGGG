@@ -54,14 +54,10 @@ router.post('/new-car', (req,res)=>{
     res.redirect("/cars");
 })
 
-router.get('/delete-car/:id',(req, res)=>{
-    db.ref('cars/'+req.params.id).remove();
-    res.redirect("/cars");
-})
 
 router.get('/get-car/:id',(req,res)=>{
 
-        db.ref('cars/'+req.params.id).on('value', (snapshot)=>{
+        db.ref('cars/'+req.params.id).once('value', (snapshot)=>{
             const data = snapshot.val();
             data.id = req.params.id;
             res.render('cars/update-cars', {data})
@@ -88,6 +84,11 @@ router.post('/update-car/:id', (req,res)=>{
 
     res.redirect('/cars');
 
+})
+
+router.get('/delete-car/:id',(req, res)=>{
+    db.ref('cars/'+req.params.id).remove();
+    res.redirect("/cars");
 })
 
 /*Administra clientes*/
@@ -117,7 +118,7 @@ router.post('/new-user', (req,res)=>{
 
 router.get('/get-user/:id',(req,res)=>{
 
-        db.ref('users/'+req.params.id).on('value', (snapshot)=>{
+        db.ref('users/'+req.params.id).once('value', (snapshot)=>{
             const data = snapshot.val();
             data.id = req.params.id;
             res.render('users/update-users', {data})
@@ -128,7 +129,7 @@ router.get('/get-user/:id',(req,res)=>{
 
 router.post('/update-user/:id', (req,res)=>{
 
-    db.ref('users/'+req.params.id).once('value', async (snapshot)=>{
+    db.ref('users/'+req.params.id).once('value', (snapshot)=>{
         const data = snapshot.val();
         console.log(data);
         console.log(req.body);
@@ -141,7 +142,7 @@ router.post('/update-user/:id', (req,res)=>{
             street: (req.body.street!=''? req.body.street : data.street),
             s_number: (req.body.s_number!=''? req.body.s_number : data.s_number)
         }
-        await db.ref('users/'+req.params.id).set(updateUser);
+        db.ref('users/'+req.params.id).set(updateUser);
     })
 
     res.redirect('/users');
