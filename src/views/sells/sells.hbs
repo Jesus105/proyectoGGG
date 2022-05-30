@@ -1,4 +1,4 @@
-<div class="col md-6 offset-md-3">
+<div class="col md-6">
     <div class="card">
         <div class="card-header">
             <h1>Registrar venta</h1>
@@ -33,14 +33,14 @@
             <label for="stores">Tienda:</label>
               {{#if stores}}
                   <select name = "stores" id = "stores" class="form-select" aria-label="Default select example">
-                    <option selected>Open this select menu</option>
+                    <option selected>Seleccione una sucursal</option>
                     {{#each stores}}
                       <option value="{{@key}}">{{name}}</option>
                     {{/each}}
                   </select>
                 {{else}}
                 <select class="form-select" aria-label="Disabled select example" disabled>
-                  <option selected>Aún no hay tiendas registradas</option>
+                  <option selected>Aún no hay sucursales registradas</option>
                 </select>
                 {{/if}}
               
@@ -52,7 +52,7 @@
                   <select name = "cars" id = "cars" class="form-select" aria-label="Default select example">
                     <option selected>Seleccione un auto</option>
                     {{#each cars}}
-                      <option value="{{@key}}">{{brand}} {{model}} {{color}} {{year}} {{type}}</option>
+                      <option value="{{@key}}">{{brand}} {{model}} {{color}}</option>
                     {{/each}}
                   </select>
                 {{else}}
@@ -71,7 +71,10 @@
                   <select name = "users" id = "cars" class="form-select" aria-label="Default select example">
                     <option selected>Seleccione un cliente</option>
                     {{#each users}}
-                      <option value="{{@key}}">{{name}} {{email}} {{phone}}</option>
+                      <option value="{{@key}}">
+                          Nombre: {{name}}
+                          E-mail: {{email}}
+                      </option>
                     {{/each}}
                   </select>
                 {{else}}
@@ -92,9 +95,14 @@
           </div>
         </div>
         <br><br>
-        <button class="btn btn-primary btn-block">
-          Add
-        </button>
+        <div class="row">
+          <div class="col">
+            <button class="btn btn-primary btn-block">Add</button>
+          </div>
+          <div class="col">
+            <button class="btn btn-success btn-block">Inicio</button>
+          </div>
+        </div>
 
       </form>
     </div>
