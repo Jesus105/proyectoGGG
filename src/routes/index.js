@@ -2,7 +2,7 @@ const { Router } = require('express');
 const router = Router();
 
 const admin = require("firebase-admin");
-const { route } = require('../app');
+const { route, rawListeners } = require('../app');
 
 const serviceAccount = require("../key.json");
 
@@ -24,10 +24,53 @@ router.get('/', (req, res) =>{
 
 /*Administra ventas*/
 
+/* Obtener valores de diferentes tablas */
+router.get('/sells', getStores, getCars, getUsers, getSells, renderFrom);
 
-router.get('/sells', (req, res) =>{
-        res.render('sells/sells')
-    
+function getStores(req, res, next) {
+    db.ref('stores').once('value', (snapshot) => {
+        res.locals.stores = snapshot.val();
+        next();
+    });
+}
+
+function getCars(req, res, next) {
+    db.ref('cars').once('value', (snapshot) => {
+        res.locals.cars = snapshot.val();
+        next();
+    });
+}
+
+function getUsers(req, res, next) {
+    db.ref('users').once('value', (snapshot) => {
+        res.locals.users = snapshot.val();
+        next();
+    })
+}
+
+function getSells(req, res, next) {
+    db.ref('sells').once('value', (snapshot) => {
+        res.locals.sells = snapshot.val();
+        next();
+    })
+}
+
+function renderFrom(req, res) {
+    res.render('sells/sells')
+}
+
+/* Realizar las demás acciones de ventas */
+
+router.post('/new-sell', (req,res)=>{
+    console.log(req.body);
+    const newSell = {
+        store: req.body.stores,
+        car: req.body.cars,
+        client: req.body.users,
+        pay: req.body.pay
+    }
+    db.ref('sells').push(newSell);
+    res.redirect("/sells");
 })
 
 /*    Administrar automoviles      */
@@ -155,8 +198,8 @@ router.get('/delete-user/:id',(req, res)=>{
 })
 
 
-/*Administra ventas*/
 
+/*Administra agencias */
 
 router.get('/stores', (req, res) =>{
         res.render('stores/stores')

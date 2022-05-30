@@ -4,37 +4,38 @@
             <h1>Registrar venta</h1>
         </div>
         <div class="card-body">
-          {{#if cars}}
+          {{#if sells}}
             <ul class="list-group">
-            {{#each cars}}
+            {{#each sells}}
               <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{brand}}
-                {{model}}
-                {{year}}
-                {{color}}
-                {{quantity}}
-                {{type}}
-                <a href="/delete-car/{{@key}}" class="btn btn-danger">
+                {{client}}
+                {{car}}
+                {{store}}
+                {{pay}}
+                <a href="/get-user/{{@key}}" class="btn btn-primary">
+                  Actualizar
+                </a>
+                <a href="/delete-user/{{@key}}" class="btn btn-danger">
                   Eliminar
                 </a>
               </li>
             {{/each}}
             </ul>
           {{else}}
-          <p>Aún no se registran contactos</p>
+          <p>Aún no se registran clientes</p>
           {{/if}}
         </div>
     <div class="card-footer">
-      <form action="/new-car" method="POST">
+      <form action="/new-sell" method="POST">
         <div class="row">
           <div class="col">
-            <label for="store">Tienda:</label>
+
+            <label for="stores">Tienda:</label>
               {{#if stores}}
-                  <select class="form-select" aria-label="Default select example"></select>
+                  <select name = "stores" id = "stores" class="form-select" aria-label="Default select example">
                     <option selected>Open this select menu</option>
                     {{#each stores}}
-                      <option value="{{@key}}">{{stores.name}}</option>
-
+                      <option value="{{@key}}">{{name}}</option>
                     {{/each}}
                   </select>
                 {{else}}
@@ -45,13 +46,13 @@
               
           </div>
           <div class="col">
+
             <label for="cars">Automoviles:</label>
               {{#if cars}}
-                  <select class="form-select" aria-label="Default select example"></select>
+                  <select name = "cars" id = "cars" class="form-select" aria-label="Default select example">
                     <option selected>Seleccione un auto</option>
                     {{#each cars}}
-                      <option value="{{@key}}">{{cars.name}}</option>
-
+                      <option value="{{@key}}">{{brand}} {{model}} {{color}} {{year}} {{type}}</option>
                     {{/each}}
                   </select>
                 {{else}}
@@ -59,44 +60,42 @@
                   <option selected>Aún no hay autos registrados</option>
                 </select>
                 {{/if}}
-              
+
           </div>
         </div>
         <div class="row">
           <div class="col">
-            <label for="year">Año:</label>
-            <input
-              type="text"
-              name="year"
-              placeholder="Año"
-              class="form-control mb-3"
-              value="{{car.year}}"
-            />
+            
+            <label for="users">Clientes:</label>
+              {{#if users}}
+                  <select name = "users" id = "cars" class="form-select" aria-label="Default select example">
+                    <option selected>Seleccione un cliente</option>
+                    {{#each users}}
+                      <option value="{{@key}}">{{name}} {{email}} {{phone}}</option>
+                    {{/each}}
+                  </select>
+                {{else}}
+                <select class="form-select" aria-label="Disabled select example" disabled>
+                  <option selected>Aún no hay clientes registrados</option>
+                </select>
+                {{/if}}
+
           </div>
           <div class="col">
-            <label for="color">Color:</label>
-            <input
-              type="tel"
-              name="color"
-              placeholder="Color"
-              class="form-control mb-3"
-              value="{{car.color}}"
-            />
+            <label for="pay">Método de Pago:</label>
+              <select name = "pay" id = "pay" class="form-select" aria-label="Default select example">
+                  <option selected>Seleccione un método de pago</option>
+                  <option value="Efectivo">Efectivo</option>
+                  <option value="Tarjeta de Credito">Tarjeta de Credito o Debito</option>
+                  <option value="Criptomonedas">Criptomonedas</option>
+              </select>
           </div>
         </div>
-       
-        {{#if car.id}}
-          <button class="btn btn-primary btn-block">
-            Update
-          </button>
-          <a href="/" class="btn btn-secondary">
-            Cancel
-          </a>
-        {{else}}
-          <button class="btn btn-primary btn-block">
-            Add
-          </button>
-        {{/if}}
+        <br><br>
+        <button class="btn btn-primary btn-block">
+          Add
+        </button>
+
       </form>
     </div>
         
