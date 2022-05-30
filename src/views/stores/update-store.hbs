@@ -1,55 +1,18 @@
 <div class="col md-6 ">
     <div class="card">
         <div class="card-header">
-            <h1>Registrar sucursal</h1>
+            <h1>Actualizar datos del auto</h1>
         </div>
-        <div class="card-body">
-          {{#if stores}}
-            <ul class="list-group">
-            {{#each stores}}
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                <ul>
-                  <li>
-                    Nombre: {{name}}
-                  </li>
-                  <li>
-                    Calle: {{street}}
-                  </li>
-                  <li>
-                    Colonia: {{neighborhood}}
-                  </li>
-                  <li>
-                    cp: {{cp}}
-                  </li>
-                  <li>
-                    Estado: {{province}}
-                  </li>
-                  <li>
-                    Teléfono: {{phone}}
-                  </li>
-                </ul>
-                <a href="/get-store/{{@key}}" class="btn btn-primary">
-                  Actualizar
-                </a>
-                <a href="/delete-store/{{@key}}" class="btn btn-danger">
-                  Eliminar
-                </a>
-              </li>
-            {{/each}}
-            </ul>
-          {{else}}
-          <p>Aún no se registran autos</p>
-          {{/if}}
-        </div>
-    <div class="card-footer">
-      <form action="/new-store" method="POST">
+        
+    <div class="card-body">
+      <form action="/update-store/{{data.id}}" method="POST">
         <div class="row">
           <div class="col">
             <label for="name">Nombre:</label>
             <input
               type="text"
               name="name"
-              placeholder="Nombre"
+              placeholder="{{data.name}}"
               class="form-control mb-3"
               value="{{store.name}}"
               autofocus
@@ -60,7 +23,7 @@
             <input
               type="text"
               name="street"
-              placeholder="Calle"
+              placeholder="{{data.street}}"
               class="form-control mb-3"
               value="{{store.street}}"
             />
@@ -72,7 +35,7 @@
             <input
               type="text"
               name="neighborhood"
-              placeholder="Colonia"
+              placeholder="{{data.neighborhood}}"
               class="form-control mb-3"
               value="{{store.neighborhood}}"
             />
@@ -82,7 +45,7 @@
             <input
               type="text"
               name="cp"
-              placeholder="cp"
+              placeholder="{{data.cp}}"
               class="form-control mb-3"
               value="{{store.cp}}"
             />
@@ -94,7 +57,7 @@
             <input
               type="text"
               name="province"
-              placeholder="Estado"
+              placeholder="{{data.province}}"
               class="form-control mb-3"
               value="{{store.province}}"
             />
@@ -104,7 +67,7 @@
             <input
               type="text"
               name="phone"
-              placeholder="Teléfono"
+              placeholder="{{data.phone}}"
               class="form-control mb-3"
               value="{{store.phone}}"
             />
@@ -119,7 +82,7 @@
           </a>
         {{else}}
           <button class="btn btn-primary btn-block">
-            Agregar
+            Actuailzar
           </button>
         {{/if}}
       </form>
