@@ -13,6 +13,30 @@ admin.initializeApp({
 
 const db = admin.database();
 
+/* Obtener datos */
+
+const get_cars = ()=>{
+    let data = db.ref('cars').once('value', (snapshot)=>{
+        const data = snapshot.val();
+        return data;
+    
+    });
+
+    const d = {
+        brand: data.brand,
+        model: data.model,
+        year: data.year,
+        color: data.color,
+        quantity: data.quantity,
+        type: data.type
+    }
+
+    return d
+
+}
+
+/* Ruta principal */
+
 
 router.get('/', (req, res) =>{
     db.ref('cars').once('value', (snapshot)=>{
@@ -37,7 +61,8 @@ router.get('/cars', (req, res) =>{
         const data = snapshot.val();
         res.render('cars/cars', {cars: data})
     });
-    
+
+    console.log(get_cars()) 
 })
 
 router.post('/new-car', (req,res)=>{
@@ -154,6 +179,67 @@ router.get('/delete-user/:id',(req, res)=>{
     res.redirect("/users");
 })
 
+/*Administra sucursales*/
+
+
+router.get('/stores', (req, res) =>{
+    db.ref('stores').once('value', (snapshot)=>{
+        const data = snapshot.val();
+        res.render('stores/stores', {stores: data})
+    });
+    
+})
+
+router.post('/new-store', (req,res)=>{
+    console.log(req.body);
+    const newUser = {
+        name: req.body.name,
+        cp: req.body.cp,
+        neighborhood: req.body.neighborhood,
+        phone: req.body.phone,
+        province: req.body.province,
+        street: req.body.street,
+    }
+    db.ref('stores').push(newUser);
+    res.redirect("/stores");
+})
+
+router.get('/get-store/:id',(req,res)=>{
+
+        db.ref('stores/'+req.params.id).once('value', (snapshot)=>{
+            const data = snapshot.val();
+            data.id = req.params.id;
+            res.render('stores/update-store', {data})
+        })
+        
+})
+
+
+router.post('/update-store/:id', (req,res)=>{
+
+    db.ref('stores/'+req.params.id).once('value', (snapshot)=>{
+        const data = snapshot.val();
+        console.log(data);
+        console.log(req.body);
+        const updateUser = {
+            name: (req.body.name!=''? req.body.name : data.name),
+            cp: (req.body.cp!=''? req.body.cp : data.cp),
+            phone: (req.body.phone!=''? req.body.phone : data.phone),
+            province: (req.body.province!=''? req.body.province : data.province),
+            street: (req.body.street!=''? req.body.street : data.street),
+            neighborhood: (req.body.neighborhood!=''? req.body.neighborhood : data.neighborhood),
+        }
+        db.ref('stores/'+req.params.id).set(updateUser);
+    })
+
+    res.redirect('/stores');
+
+})
+
+router.get('/delete-store/:id',(req, res)=>{
+    db.ref('stores/'+req.params.id).remove();
+    res.redirect("/stores");
+})
 
 /*Administra ventas*/
 

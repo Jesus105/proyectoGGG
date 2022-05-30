@@ -6,7 +6,7 @@ const morgan = require("morgan");
 const app = express();
 
 // Settings
-app.set("port", process.env.PORT || 4000);
+app.set("port", process.env.PORT || 3000);
 app.set("views", path.join(__dirname, "views"));
 app.engine(
   ".hbs",
