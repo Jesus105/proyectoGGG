@@ -16,20 +16,23 @@ const db = admin.database();
 /* Obtener datos */
 
 const get_cars = ()=>{
+
+    let d;
+
     let data = db.ref('cars').once('value', (snapshot)=>{
         const data = snapshot.val();
-        return data;
+
+        d = data
+        console.log("in")
+        console.log(d)
+
     
     });
 
-    const d = {
-        brand: data.brand,
-        model: data.model,
-        year: data.year,
-        color: data.color,
-        quantity: data.quantity,
-        type: data.type
-    }
+    console.log("out: ")
+    console.log(d)
+    
+
 
     return d
 
