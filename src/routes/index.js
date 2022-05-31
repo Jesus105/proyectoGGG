@@ -112,17 +112,26 @@ router.get('/cars', (req, res) =>{
 })
 
 router.post('/new-car', (req,res)=>{
-    console.log(req.body);
-    const newCar = {
-        brand: req.body.brand,
-        model: req.body.model,
-        year: req.body.year,
-        color: req.body.color,
-        quantity: req.body.quantity,
-        type: req.body.type
+    if(req.body.brand !='' && req.body.model !='' && req.body.year !='' && req.body.color !='' && req.body.quantity !='' && req.body.type !='' && req.body.price !=''){
+        console.log(req.body);
+        const newCar = {
+            brand: req.body.brand,
+            model: req.body.model,
+            year: req.body.year,
+            color: req.body.color,
+            quantity: req.body.quantity,
+            type: req.body.type,
+            price: req.body.price
+        }
+        db.ref('cars').push(newCar);
+        res.redirect("/cars");
+    } else{
+        db.ref('cars').once('value', (snapshot)=>{
+            const data = snapshot.val();
+            res.render('cars/new-cars', {cars: data, car: req.body})
+        });
+
     }
-    db.ref('cars').push(newCar);
-    res.redirect("/cars");
 })
 
 
@@ -140,15 +149,14 @@ router.post('/update-car/:id', (req,res)=>{
 
     db.ref('cars/'+req.params.id).once('value', (snapshot)=>{
         const data = snapshot.val();
-        console.log(data);
-        console.log(req.body);
         const updateCar = {
             brand: (req.body.brand!=''? req.body.brand : data.brand),
             model: (req.body.model!=''? req.body.model : data.model),
             year: (req.body.year!=''? req.body.year : data.year),
             color: (req.body.color!=''? req.body.color : data.color),
             quantity: (req.body.quantity!=''? req.body.quantity : data.quantity),
-            type: (req.body.type!=''? req.body.type : data.type)
+            type: (req.body.type!=''? req.body.type : data.type),
+            price: (req.body.price!=''? req.body.price : data.price)
         }
         db.ref('cars/'+req.params.id).set(updateCar);
     })
@@ -172,19 +180,32 @@ router.get('/users', (req, res) =>{
     
 })
 
+
 router.post('/new-user', (req,res)=>{
-    console.log(req.body);
-    const newUser = {
-        name: req.body.name,
-        age: req.body.age,
-        email: req.body.email,
-        phone: req.body.phone,
-        state: req.body.state,
-        street: req.body.street,
-        s_number: req.body.s_number
+
+    let e = true
+
+    if(req.body.name != '' && req.body.age != '' && req.body.email != '' && req.body.phone != '' && req.body.state != '' && req.body.s_number != ''){
+        console.log(req.body);
+        const newUser = {
+            name: req.body.name,
+            age: req.body.age,
+            email: req.body.email,
+            phone: req.body.phone,
+            state: req.body.state,
+            street: req.body.street,
+            s_number: req.body.s_number
+        }
+        db.ref('users').push(newUser);
+        res.redirect("/users");
+    } else{
+        db.ref('users').once('value', (snapshot)=>{
+            const data = snapshot.val();
+            res.render('users/new-user', {users: data, user: req.body})
+        });
+        
     }
-    db.ref('users').push(newUser);
-    res.redirect("/users");
+
 })
 
 router.get('/get-user/:id',(req,res)=>{
@@ -237,17 +258,31 @@ router.get('/stores', (req, res) =>{
 })
 
 router.post('/new-store', (req,res)=>{
-    console.log(req.body);
-    const newUser = {
-        name: req.body.name,
-        cp: req.body.cp,
-        neighborhood: req.body.neighborhood,
-        phone: req.body.phone,
-        province: req.body.province,
-        street: req.body.street,
+
+    if(req.body.name != '' && req.body.street != '' && req.body.neighborhood != '' && req.body.cp != '' && req.body.province != '' && req.body.phone != ''){
+
+        console.log(req.body);
+        const newUser = {
+            name: req.body.name,
+            cp: req.body.cp,
+            neighborhood: req.body.neighborhood,
+            phone: req.body.phone,
+            province: req.body.province,
+            street: req.body.street,
+        }
+        db.ref('stores').push(newUser);
+        res.redirect("/stores");
+        
+    }else{
+
+        db.ref('stores').once('value', (snapshot)=>{
+            const data = snapshot.val();
+            console.log(req.body)
+            res.render('stores/new-store', {stores: data, store: req.body})
+        });
+
     }
-    db.ref('stores').push(newUser);
-    res.redirect("/stores");
+
 })
 
 router.get('/get-store/:id',(req,res)=>{

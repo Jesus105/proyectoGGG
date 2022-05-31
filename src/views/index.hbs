@@ -1,36 +1,61 @@
-<div class="col md-6 ">
-    <div class="card">
-        <div class="card-header">
-            <h1>Venta de autos</h1>
-        </div>
-        <div class="card-body">
-
-            <ul class="list-group">
-              <li class="list-group-item ">
-                <div class="d-grid gap-2">
-                  <a href="/sells" class="btn btn-outline-primary " type="button">Ventas de autos</a>
-                </div>
-              </li>
-              <li class="list-group-item ">
-                <div class="d-grid gap-2">
-                  <a href="/cars" class="btn btn-outline-primary" href="/cars" type="button">Autos en stock</a>
-                </div>
-              </li>
-              <li class="list-group-item ">
-                <div class="d-grid gap-2">
-                  <a href="/users" class="btn btn-outline-primary " type="button">Información de clientes</a>
-                </div>
-              </li>
-              <li class="list-group-item ">
-                <div class="d-grid gap-2">
-                  <a href="/stores" class="btn btn-outline-primary " type="button">Información de sucursales</a>
-                </div>
-              </li>
-            </ul>
-        </div>
-      <div class="card-footer">
- 
-      </div>
-        
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Venta de autos</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/sells">Ventas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/cars">Autos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users">Clientes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/stores">Sucursales</a>
+        </li>
+      </ul>
     </div>
-</div>
+  </div>
+</nav>
+
+<div class="container">
+
+    <!-- Example Code -->
+    
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          
+          <img src="../public/bmw.jpg" class="d-block h-60 w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+         
+          <img src="../public/mercedes.jpg" class="d-block h-60 w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          
+          <img src="../public/mustang.webp" class="d-block h-60 w-100" alt="...">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    
+  </div>
+    <!-- End Example Code -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>

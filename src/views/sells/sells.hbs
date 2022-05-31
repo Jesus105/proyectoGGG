@@ -1,111 +1,143 @@
-<div class="col md-6">
-    <div class="card">
-        <div class="card-header">
-            <h1>Registrar venta</h1>
-        </div>
-        <div class="card-body">
-          {{#if sells}}
-            <ul class="list-group">
-            {{#each sells}}
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{client.data}}
-                {{car}}
-                {{store}}
-                {{pay}}
-                <a href="/get-user/{{@key}}" class="btn btn-primary">
-                  Actualizar
-                </a>
-                <a href="/delete-user/{{@key}}" class="btn btn-danger">
-                  Eliminar
-                </a>
-              </li>
-            {{/each}}
-            </ul>
-          {{else}}
-          <p>Aún no se registran clientes</p>
-          {{/if}}
-        </div>
-    <div class="card-footer">
-      <form action="/new-sell" method="POST">
-        <div class="row">
-          <div class="col">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Venta de autos</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="/">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/sells">Ventas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/cars">Autos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users">Clientes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/stores">Sucursales</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-            <label for="stores">Tienda:</label>
-              {{#if stores}}
-                  <select name = "stores" id = "stores" class="form-select" aria-label="Default select example">
-                    <option selected>Seleccione una sucursal</option>
-                    {{#each stores}}
-                      <option value="{{@key}}">{{name}}</option>
-                    {{/each}}
+<div class="container">
+  <div class="row">
+    <div class="col md-6">
+        <div class="card">
+            <div class="card-header">
+                <h1>Registrar venta</h1>
+            </div>
+            <div class="card-body">
+              {{#if sells}}
+                <ul class="list-group">
+                {{#each sells}}
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{client.data}}
+                    {{car}}
+                    {{store}}
+                    {{pay}}
+                    <a href="/get-user/{{@key}}" class="btn btn-primary">
+                      Actualizar
+                    </a>
+                    <a href="/delete-user/{{@key}}" class="btn btn-danger">
+                      Eliminar
+                    </a>
+                  </li>
+                {{/each}}
+                </ul>
+              {{else}}
+              <p>Aún no se registran clientes</p>
+              {{/if}}
+            </div>
+        <div class="card-footer">
+          <form action="/new-sell" method="POST">
+            <div class="row">
+              <div class="col">
+
+                <label for="stores">Tienda:</label>
+                  {{#if stores}}
+                      <select name = "stores" id = "stores" class="form-select" aria-label="Default select example">
+                        <option selected>Seleccione una sucursal</option>
+                        {{#each stores}}
+                          <option value="{{@key}}">{{name}}</option>
+                        {{/each}}
+                      </select>
+                    {{else}}
+                    <select class="form-select" aria-label="Disabled select example" disabled>
+                      <option selected>Aún no hay sucursales registradas</option>
+                    </select>
+                    {{/if}}
+                  
+              </div>
+              <div class="col">
+
+                <label for="cars">Automoviles:</label>
+                  {{#if cars}}
+                      <select name = "cars" id = "cars" class="form-select" aria-label="Default select example">
+                        <option selected>Seleccione un auto</option>
+                        {{#each cars}}
+                          <option value="{{@key}}">{{brand}} {{model}} {{color}}</option>
+                        {{/each}}
+                      </select>
+                    {{else}}
+                    <select class="form-select" aria-label="Disabled select example" disabled>
+                      <option selected>Aún no hay autos registrados</option>
+                    </select>
+                    {{/if}}
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                
+                <label for="users">Clientes:</label>
+                  {{#if users}}
+                      <select name = "users" id = "cars" class="form-select" aria-label="Default select example">
+                        <option selected>Seleccione un cliente</option>
+                        {{#each users}}
+                          <option value="{{@key}}">
+                              Nombre: {{name}}
+                              E-mail: {{email}}
+                          </option>
+                        {{/each}}
+                      </select>
+                    {{else}}
+                    <select class="form-select" aria-label="Disabled select example" disabled>
+                      <option selected>Aún no hay clientes registrados</option>
+                    </select>
+                    {{/if}}
+
+              </div>
+              <div class="col">
+                <label for="pay">Método de Pago:</label>
+                  <select name = "pay" id = "pay" class="form-select" aria-label="Default select example">
+                      <option selected>Seleccione un método de pago</option>
+                      <option value="Efectivo">Efectivo</option>
+                      <option value="Tarjeta de Credito">Tarjeta de Credito o Debito</option>
+                      <option value="Criptomonedas">Criptomonedas</option>
                   </select>
-                {{else}}
-                <select class="form-select" aria-label="Disabled select example" disabled>
-                  <option selected>Aún no hay sucursales registradas</option>
-                </select>
-                {{/if}}
-              
-          </div>
-          <div class="col">
+              </div>
+            </div>
+            <br><br>
+            <div class="row">
+              <div class="col">
+                <button class="btn btn-primary btn-block">Add</button>
+              </div>
+              <div class="col">
+                <button class="btn btn-success btn-block">Inicio</button>
+              </div>
+            </div>
 
-            <label for="cars">Automoviles:</label>
-              {{#if cars}}
-                  <select name = "cars" id = "cars" class="form-select" aria-label="Default select example">
-                    <option selected>Seleccione un auto</option>
-                    {{#each cars}}
-                      <option value="{{@key}}">{{brand}} {{model}} {{color}}</option>
-                    {{/each}}
-                  </select>
-                {{else}}
-                <select class="form-select" aria-label="Disabled select example" disabled>
-                  <option selected>Aún no hay autos registrados</option>
-                </select>
-                {{/if}}
-
-          </div>
+          </form>
         </div>
-        <div class="row">
-          <div class="col">
             
-            <label for="users">Clientes:</label>
-              {{#if users}}
-                  <select name = "users" id = "cars" class="form-select" aria-label="Default select example">
-                    <option selected>Seleccione un cliente</option>
-                    {{#each users}}
-                      <option value="{{@key}}">
-                          Nombre: {{name}}
-                          E-mail: {{email}}
-                      </option>
-                    {{/each}}
-                  </select>
-                {{else}}
-                <select class="form-select" aria-label="Disabled select example" disabled>
-                  <option selected>Aún no hay clientes registrados</option>
-                </select>
-                {{/if}}
-
-          </div>
-          <div class="col">
-            <label for="pay">Método de Pago:</label>
-              <select name = "pay" id = "pay" class="form-select" aria-label="Default select example">
-                  <option selected>Seleccione un método de pago</option>
-                  <option value="Efectivo">Efectivo</option>
-                  <option value="Tarjeta de Credito">Tarjeta de Credito o Debito</option>
-                  <option value="Criptomonedas">Criptomonedas</option>
-              </select>
-          </div>
         </div>
-        <br><br>
-        <div class="row">
-          <div class="col">
-            <button class="btn btn-primary btn-block">Add</button>
-          </div>
-          <div class="col">
-            <button class="btn btn-success btn-block">Inicio</button>
-          </div>
-        </div>
-
-      </form>
     </div>
-        
-    </div>
+  </div>
 </div>

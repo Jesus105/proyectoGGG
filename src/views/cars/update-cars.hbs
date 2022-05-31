@@ -1,92 +1,134 @@
-<div class="col md-6 ">
-    <div class="card">
-        <div class="card-header">
-            <h1>Actualizar datos del auto</h1>
-        </div>
-        
-    <div class="card-body">
-      <form action="/update-car/{{data.id}}" method="POST">
-        <div class="row">
-          <div class="col">
-            <label for="brand">Marca:</label>
-            <input
-              type="text"
-              name="brand"
-              placeholder="{{data.brand}}"
-              class="form-control mb-3"
-              value="{{car.brand}}"
-              autofocus
-            />
-          </div>
-          <div class="col">
-            <label for="model">Modelo:</label>
-            <input
-              type="text"
-              name="model"
-              placeholder="{{data.model}}"
-              class="form-control mb-3"
-              value="{{car.model}}"
-            />
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <label for="year">Año:</label>
-            <input
-              type="text"
-              name="year"
-              placeholder="{{data.year}}"
-              class="form-control mb-3"
-              value="{{car.year}}"
-            />
-          </div>
-          <div class="col">
-            <label for="color">Color:</label>
-            <input
-              type="text"
-              name="color"
-              placeholder="{{data.color}}"
-              class="form-control mb-3"
-              value="{{car.color}}"
-            />
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <label for="quantity">Cantidad:</label>
-            <input
-              type="text"
-              name="quantity"
-              placeholder="{{data.quantity}}"
-              class="form-control mb-3"
-              value="{{car.quantity}}"
-            />
-          </div>
-          <div class="col">
-            <label for="type">Tipo:</label>
-            <input
-              type="text"
-              name="type"
-              placeholder="{{data.type}}"
-              class="form-control mb-3"
-              value="{{car.type}}"
-            />
-          </div>
-        </div>
-        {{#if car.id}}
-          <button class="btn btn-primary btn-block">
-            Update
-          </button>
-          <a href="/" class="btn btn-secondary">
-            Cancel
-          </a>
-        {{else}}
-          <button class="btn btn-primary btn-block">
-            Actuailzar
-          </button>
-        {{/if}}
-      </form>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Venta de autos</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="/">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/sells">Ventas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/cars">Autos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users">Clientes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/stores">Sucursales</a>
+        </li>
+      </ul>
     </div>
-        
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+    <div class="col md-6 ">
+        <div class="card">
+            <div class="card-header">
+                <h1>Actualizar datos del auto</h1>
+            </div>
+            
+        <div class="card-body">
+          <form action="/update-car/{{data.id}}" method="POST">
+            <div class="row">
+              <div class="col">
+                <label for="brand">Marca:</label>
+                <input
+                  type="text"
+                  name="brand"
+                  placeholder="{{data.brand}}"
+                  class="form-control mb-3"
+                  value="{{data.brand}}"
+                  autofocus
+                />
+              </div>
+              <div class="col">
+                <label for="model">Modelo:</label>
+                <input
+                  type="text"
+                  name="model"
+                  placeholder="{{data.model}}"
+                  class="form-control mb-3"
+                  value="{{data.model}}"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="year">Año:</label>
+                <input
+                  type="text"
+                  name="year"
+                  placeholder="{{data.year}}"
+                  class="form-control mb-3"
+                  value="{{data.year}}"
+                />
+              </div>
+              <div class="col">
+                <label for="color">Color:</label>
+                <input
+                  type="text"
+                  name="color"
+                  placeholder="{{data.color}}"
+                  class="form-control mb-3"
+                  value="{{data.color}}"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="quantity">Cantidad:</label>
+                <input
+                  type="text"
+                  name="quantity"
+                  placeholder="{{data.quantity}}"
+                  class="form-control mb-3"
+                  value="{{data.quantity}}"
+                />
+              </div>
+              <div class="col">
+                <label for="type">Tipo:</label>
+                <input
+                  type="text"
+                  name="type"
+                  placeholder="{{data.type}}"
+                  class="form-control mb-3"
+                  value="{{data.type}}"
+                />
+              </div>
+              <div class="col">
+                <label for="price">Precio:</label>
+                <input
+                  type="text"
+                  name="price"
+                  placeholder="{{data.price}}"
+                  class="form-control mb-3"
+                  value="{{data.price}}"
+                />
+              </div>
+            </div>
+            {{#if data.id}}
+              <button class="btn btn-primary btn-block">
+                Update
+              </button>
+              <a href="/cars" class="btn btn-secondary">
+                Cancel
+              </a>
+            {{else}}
+              <button class="btn btn-primary btn-block">
+                Actuailzar
+              </button>
+            {{/if}}
+          </form>
+        </div>
+            
+        </div>
     </div>
+  </div>
 </div>
