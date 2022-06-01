@@ -1,39 +1,18 @@
-<div class="col md-6 offset-md-3">
+<div class="col md-6 ">
     <div class="card">
         <div class="card-header">
-            <h1>Registrar venta</h1>
+            <h1>Actualizar datos de la venta</h1>
         </div>
-        <div class="card-body">
-          {{#if sells}}
-            <ul class="list-group">
-            {{#each sells}}
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{client}}
-                {{car}}
-                {{store}}
-                {{pay}}
-                <a href="/get-sell/{{@key}}" class="btn btn-primary">
-                  Actualizar
-                </a>
-                <a href="/delete-sell/{{@key}}" class="btn btn-danger">
-                  Eliminar
-                </a>
-              </li>
-            {{/each}}
-            </ul>
-          {{else}}
-          <p>Aún no se registran ventas</p>
-          {{/if}}
-        </div>
-    <div class="card-footer">
-      <form action="/new-sell" method="POST">
+    <div class="card-body">
+        <form action="/update-sell/{{sell.id}}" method="POST">
+
         <div class="row">
           <div class="col">
 
             <label for="stores">Tienda:</label>
               {{#if stores}}
                   <select name = "stores" id = "stores" class="form-select" aria-label="Default select example">
-                    <option selected>Open this select menu</option>
+                    <option selected>{{sell.store}}</option>
                     {{#each stores}}
                       <option value="{{name}}">{{name}}</option>
                     {{/each}}
@@ -50,7 +29,7 @@
             <label for="cars">Automoviles:</label>
               {{#if cars}}
                   <select name = "cars" id = "cars" class="form-select" aria-label="Default select example">
-                    <option selected>Seleccione un auto</option>
+                    <option selected>{{sell.car}}</option>
                     {{#each cars}}
                       <option value="{{brand}} {{model}} {{color}} {{year}} {{type}} {{price}}">{{brand}} {{model}} {{color}} {{year}} {{type}} {{price}}</option>
                     {{/each}}
@@ -69,7 +48,7 @@
             <label for="users">Clientes:</label>
               {{#if users}}
                   <select name = "users" id = "cars" class="form-select" aria-label="Default select example">
-                    <option selected>Seleccione un cliente</option>
+                    <option selected>{{sell.client}}</option>
                     {{#each users}}
                       <option value="{{name}} {{email}} {{phone}}">{{name}} {{email}} {{phone}}</option>
                     {{/each}}
@@ -84,7 +63,7 @@
           <div class="col">
             <label for="pay">Método de Pago:</label>
               <select name = "pay" id = "pay" class="form-select" aria-label="Default select example">
-                  <option selected>Seleccione un método de pago</option>
+                  <option selected>{{sell.pay}}</option>
                   <option value="Efectivo">Efectivo</option>
                   <option value="Tarjeta de Credito">Tarjeta de Credito o Debito</option>
                   <option value="Criptomonedas">Criptomonedas</option>
@@ -97,6 +76,7 @@
         </button>
 
       </form>
+
     </div>
         
     </div>
