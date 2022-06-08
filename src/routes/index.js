@@ -13,30 +13,6 @@ admin.initializeApp({
 
 const db = admin.database();
 
-/* Obtener datos */
-
-const get_cars = ()=>{
-
-    let d;
-
-    let data = db.ref('cars').once('value', (snapshot)=>{
-        const data = snapshot.val();
-
-        d = data
-        console.log("in")
-        console.log(d)
-
-    
-    });
-
-    console.log("out: ")
-    console.log(d)
-    
-
-
-    return d
-
-}
 
 /* Ruta principal */
 
@@ -98,16 +74,26 @@ function renderFrom(req, res) {
 
 /* Realizar las demás acciones de ventas */
 
+
+router.get('/new-sell', getStores, getCars, getUsers, getSells, failSell);
+function failSell(req, res) {
+    res.render('sells/new-sell')
+}
+
 router.post('/new-sell', (req,res)=>{
-    console.log(req.body);
-    const newSell = {
-        store: req.body.stores,
-        car: req.body.cars,
-        client: req.body.users,
-        pay: req.body.pay
+    if(req.body.car!="Seleccione un auto" && req.body.client!="Seleccione un auto" && req.body.pay!="Seleccione un método de pago" && req.body.store!="Seleccione una sucursal"){
+        console.log(req.body);
+        const newSell = {
+            store: req.body.stores,
+            car: req.body.cars,
+            client: req.body.users,
+            pay: req.body.pay
+        }
+        db.ref('sells').push(newSell);
+        res.redirect("/sells");
+    }else{
+        res.redirect("/new-sell");
     }
-    db.ref('sells').push(newSell);
-    res.redirect("/sells");
 })
 
 router.get('/get-sell/:id', getStores, getCars, getUsers, getSells, getSell, renderUpdate);
@@ -145,8 +131,6 @@ router.get('/cars', (req, res) =>{
         const data = snapshot.val();
         res.render('cars/cars', {cars: data})
     });
-
-    console.log(get_cars()) 
 })
 
 router.post('/new-car', (req,res)=>{

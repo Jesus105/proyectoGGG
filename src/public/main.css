@@ -1,3 +1,25 @@
 body {
     background: white;
+    margin:0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+footer{
+
+    position:fixed;
+    margin-top: 30%;
+    bottom: 0px;
+    width: 100%;
+
+}
+
+.container{
+    margin-bottom: 10%;
+}
+
+.view{
+    margin-bottom: 10%;
 }
