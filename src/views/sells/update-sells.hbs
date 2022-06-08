@@ -1,0 +1,83 @@
+<div class="col md-6 ">
+    <div class="card">
+        <div class="card-header">
+            <h1>Actualizar datos de la venta</h1>
+        </div>
+    <div class="card-body">
+        <form action="/update-sell/{{sell.id}}" method="POST">
+
+        <div class="row">
+          <div class="col">
+
+            <label for="stores">Tienda:</label>
+              {{#if stores}}
+                  <select name = "stores" id = "stores" class="form-select" aria-label="Default select example">
+                    <option selected>{{sell.store}}</option>
+                    {{#each stores}}
+                      <option value="{{name}}">{{name}}</option>
+                    {{/each}}
+                  </select>
+                {{else}}
+                <select class="form-select" aria-label="Disabled select example" disabled>
+                  <option selected>Aún no hay tiendas registradas</option>
+                </select>
+                {{/if}}
+              
+          </div>
+          <div class="col">
+
+            <label for="cars">Automoviles:</label>
+              {{#if cars}}
+                  <select name = "cars" id = "cars" class="form-select" aria-label="Default select example">
+                    <option selected>{{sell.car}}</option>
+                    {{#each cars}}
+                      <option value="{{brand}} {{model}} {{color}} {{year}} {{type}} {{price}}">{{brand}} {{model}} {{color}} {{year}} {{type}} {{price}}</option>
+                    {{/each}}
+                  </select>
+                {{else}}
+                <select class="form-select" aria-label="Disabled select example" disabled>
+                  <option selected>Aún no hay autos registrados</option>
+                </select>
+                {{/if}}
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            
+            <label for="users">Clientes:</label>
+              {{#if users}}
+                  <select name = "users" id = "cars" class="form-select" aria-label="Default select example">
+                    <option selected>{{sell.client}}</option>
+                    {{#each users}}
+                      <option value="{{name}} {{email}} {{phone}}">{{name}} {{email}} {{phone}}</option>
+                    {{/each}}
+                  </select>
+                {{else}}
+                <select class="form-select" aria-label="Disabled select example" disabled>
+                  <option selected>Aún no hay clientes registrados</option>
+                </select>
+                {{/if}}
+
+          </div>
+          <div class="col">
+            <label for="pay">Método de Pago:</label>
+              <select name = "pay" id = "pay" class="form-select" aria-label="Default select example">
+                  <option selected>{{sell.pay}}</option>
+                  <option value="Efectivo">Efectivo</option>
+                  <option value="Tarjeta de Credito">Tarjeta de Credito o Debito</option>
+                  <option value="Criptomonedas">Criptomonedas</option>
+              </select>
+          </div>
+        </div>
+        <br><br>
+        <button class="btn btn-primary btn-block">
+          Add
+        </button>
+
+      </form>
+
+    </div>
+        
+    </div>
+</div>

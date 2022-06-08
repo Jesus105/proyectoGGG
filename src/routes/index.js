@@ -77,7 +77,16 @@ function getUsers(req, res, next) {
 
 function getSells(req, res, next) {
     db.ref('sells').once('value', (snapshot) => {
-        res.locals.sells = snapshot.val();
+        res.locals.sells = snapshot.val()
+        next();
+    })
+}
+
+function getSell(req, res, next) {
+    db.ref('sells/'+req.params.id).once('value', (snapshot)=>{
+        const data = snapshot.val();
+        data.id = req.params.id;
+        res.locals.sell = data;
         next();
     })
 }
@@ -85,6 +94,7 @@ function getSells(req, res, next) {
 function renderFrom(req, res) {
     res.render('sells/sells')
 }
+
 
 /* Realizar las demás acciones de ventas */
 
@@ -97,6 +107,34 @@ router.post('/new-sell', (req,res)=>{
         pay: req.body.pay
     }
     db.ref('sells').push(newSell);
+    res.redirect("/sells");
+})
+
+router.get('/get-sell/:id', getStores, getCars, getUsers, getSells, getSell, renderUpdate);
+
+function renderUpdate(req, res) {
+    res.render('sells/update-sells')
+}
+
+router.post('/update-sell/:id', (req,res)=>{
+
+    db.ref('sells/'+req.params.id).once('value', (snapshot)=>{
+        const data = snapshot.val();
+        const updateSell = {
+            store: (req.body.stores!=''? req.body.stores : data.store),
+            car: (req.body.cars!=''? req.body.cars : data.car),
+            client: (req.body.users!=''? req.body.users : data.client),
+            pay: (req.body.pay!=''? req.body.pay : data.pay),
+        }
+        db.ref('sells/'+req.params.id).set(updateSell);
+    })
+
+    res.redirect('/sells');
+
+})
+
+router.get('/delete-sell/:id',(req, res)=>{
+    db.ref('sells/'+req.params.id).remove();
     res.redirect("/sells");
 })
 
